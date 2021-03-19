@@ -1,4 +1,5 @@
-import 'package:explorer_poc/home/home_screen.dart';
+import 'package:explorer_poc/home_screen/home_screen.dart';
+import 'package:explorer_poc/welcome_screen/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: DefaultTabController(length: 2, initialIndex: 0, child: HomeScreen(),),
+      home: HomeScreen(),
 
     );
   }

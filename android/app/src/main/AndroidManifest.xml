@@ -4,9 +4,6 @@
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="explorer_poc">
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyA_o5IZApxW-3dGiZ5QgH4U2byp52PXJAU" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
