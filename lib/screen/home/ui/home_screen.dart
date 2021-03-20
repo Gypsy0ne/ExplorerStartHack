@@ -1,4 +1,4 @@
-import 'package:explorer_poc/screen/home/bloc/home_screen_bloc.dart';
+import 'package:explorer_start_hack/screen/home/bloc/home_screen_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,7 +14,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   _getSearch() {
     final searchTextFieldController = TextEditingController();
 
-    BlocProvider.of<HomeScreenBloc>(context).add(GetSearchEvent(searchTextFieldController.text));
+    // BlocProvider.of<HomeScreenBloc>(context).add(GetSearchEvent(searchTextFieldController.text));
 
   }
 

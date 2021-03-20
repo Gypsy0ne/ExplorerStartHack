@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:explorer_poc/screen/home/ui/home_screen.dart';
+import 'package:explorer_start_hack/screen/home/ui/home_screen.dart';
 
 part 'home_screen_event.dart';
 part 'home_screen_state.dart';
@@ -12,15 +12,15 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
 
   @override
   Stream<HomeScreenState> mapEventToState(
-    HomeScreenEvent event,
-  ) async* {
-   yield HomeScreenLoading();
+      HomeScreenEvent event,
+      ) async* {
+    // yield HomeScreenLoading();
 
-   if (event is GetSearchEvent)
-   {
+    if (event is GetSearchEvent)
+    {
 
-     
-   }
+
+    }
 
   }
 }

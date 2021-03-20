@@ -9,9 +9,5 @@ abstract class HomeScreenState extends Equatable {
 
 class HomeScreenInitial extends HomeScreenState {}
 
-class HomeScreenInitial extends HomeScreenState {}
-class HomeScreenLoading() extends HomeScreenState {}
-class HomeScreenLoaded() extends HomeScreenState {}
-class HomeScreenInitial() extends HomeScreenState {}
 
 
