@@ -39,7 +39,7 @@ class HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     BlocProvider.of<HomeScreenBloc>(context).add(LoadLocationsEvent());
-        // .add(GetSearchEvent(searchTextFieldController.text));
+    // .add(GetSearchEvent(searchTextFieldController.text));
   }
 
   Widget _homeScreenBody() => Column(
@@ -47,9 +47,9 @@ class HomeScreenState extends State<HomeScreen> {
           _searchFieldWithFadeInAnimation(),
           BlocBuilder<HomeScreenBloc, HomeScreenBlocState>(
             builder: (context, state) {
-              if(state is HomeScreenLoading) {
+              if (state is HomeScreenLoading) {
                 return HomeLoadingScreen();
-              } else if(state is HomeScreenLoaded) {
+              } else if (state is HomeScreenLoaded) {
                 return HomeLoadedScreen(state.locations);
               } else {
                 return Container();
@@ -73,15 +73,14 @@ class HomeScreenState extends State<HomeScreen> {
       );
 
   Widget _searchField() => TextField(
-      onEditingComplete: () {
+      onChanged: (value) {
         _getSearch();
       },
       maxLength: 50,
-
       maxLengthEnforcement: MaxLengthEnforcement.enforced,
       controller: searchTextFieldController,
       decoration: InputDecoration(
-        counter: Offstage(),
+          counter: Offstage(),
           fillColor: Colors.grey,
           border: InputBorder.none,
           prefixIcon: Icon(Icons.search),
@@ -133,22 +132,18 @@ Override method for build
     ]));
   }
 
-  /*
-  ******************************************************************
+  /*******************************************************************
   method for sending data form Search Field to Event bloc
-  ******************************************************************
-   */
+  *******************************************************************/
   _getSearch() {
     BlocProvider.of<HomeScreenBloc>(context)
         .add(GetSearchEvent(searchTextFieldController.text));
     print(searchTextFieldController.text);
   }
 
-  /*
-  ******************************************************************
+  /*******************************************************************
   Widget Search Field + Animation
-  ******************************************************************
-   */
+  ******************************************************************/
   Widget buildSearchFieldWithFadeInAnimation() => TweenAnimationBuilder(
         child: buildSearchField(),
         tween: Tween<double>(begin: 0, end: 1),
@@ -172,11 +167,10 @@ Override method for build
         _getSearch();
       },
       maxLength: 50,
-      
       maxLengthEnforcement: MaxLengthEnforcement.enforced,
       controller: searchTextFieldController,
       decoration: InputDecoration(
-        counterText: '',
+          counterText: '',
           fillColor: Colors.grey,
           border: InputBorder.none,
           prefixIcon: Icon(Icons.search),
@@ -243,7 +237,6 @@ Override method for build
           //* Space for Loading widgets /\delete
         } else if (state is HomeScreenLoaded) {
           return ListScreen();
-
         } else {
           return ListScreen();
           //* Space for error widgets /\delete

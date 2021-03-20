@@ -17,12 +17,12 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: DetailsScreen());
+        home: 
 
-    /* BlocProvider(
+     BlocProvider(
         create: (context) => HomeScreenBloc(),
         child: HomeScreen()
       )
-    ); */
+    ); 
   }
 }
