@@ -4,60 +4,80 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
 
-class HomeScreenProvider extends StatelessWidget {
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) => HomeScreenBloc(), child: HomeScreen());
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("SBB explorer"),
+      ),
+      body: ListScreenProvider(),
+    );
   }
 }
 
-class HomeScreen extends StatefulWidget {
+class ListScreenProvider extends StatelessWidget {
   @override
-  State<StatefulWidget> createState() => HomeScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+        create: (context) => HomeScreenBloc(), child: ListScreen());
+  }
+}
+
+class ListScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => ListScreenState();
 }
 
 final searchTextFieldController = TextEditingController();
 
-class HomeScreenState extends State<HomeScreen> {
-  _getSearch() {
-    BlocProvider.of<HomeScreenBloc>(context)
-        .add(GetSearchEvent(searchTextFieldController.text));
-  }
+class ListScreenState extends State<ListScreen> {
+  /*
+  ******************************************************************
+Override method for stat initialization
+  ******************************************************************
+   */
   @override
   void initState() {
     super.initState();
     BlocProvider.of<HomeScreenBloc>(context)
         .add(GetSearchEvent(searchTextFieldController.text));
+
   }
 
 
-
+  /*
+  ******************************************************************
+Override method for build
+  ******************************************************************
+   */
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("SBB explorer"),
-        ),
-        body: Center(
-            child: Column(children: [
-              buildSearchFieldWithFadeInAnimation(),
-              builderListView()
-            ])));
-  }
-  @override void initState() {
-    super.initState();
-    KeyboardVisibilityNotification().addNewListener(
-      onChange: (bool visible) {
-        _getSearch();
-      },
-    );
+    return Center(
+        child: Column(children: [
+      buildSearchFieldWithFadeInAnimation(),
+      builderListView()
+    ]));
   }
 
-      Widget buildSearchFieldWithFadeInAnimation() =>
-      TweenAnimationBuilder(
+  /*
+  ******************************************************************
+  method for sending data form Search Field to Event bloc
+  ******************************************************************
+   */
+  _getSearch() {
+    BlocProvider.of<HomeScreenBloc>(context)
+        .add(GetSearchEvent(searchTextFieldController.text));
+    print(searchTextFieldController.text);
+  }
+
+  /*
+  ******************************************************************
+  Widget Search Field + Animation
+  ******************************************************************
+   */
+  Widget buildSearchFieldWithFadeInAnimation() => TweenAnimationBuilder(
         child: buildSearchField(),
         tween: Tween<double>(begin: 0, end: 1),
         duration: Duration(seconds: 1),
@@ -70,72 +90,89 @@ class HomeScreenState extends State<HomeScreen> {
         },
       );
 
-  Widget buildSearchField() =>
-   TextField(
-              maxLength: 50,
-              maxLengthEnforcement: MaxLengthEnforcement.enforced,
-       onEditingComplete: () {
-         _getSearch();},
+  /*
+  ******************************************************************
+  Widget Search Field
+  ******************************************************************
+   */
+  Widget buildSearchField() => TextField(
+      onEditingComplete: () {
+        _getSearch();
+      },
+      maxLength: 50,
+      maxLengthEnforcement: MaxLengthEnforcement.enforced,
+      controller: searchTextFieldController,
+      decoration: InputDecoration(
+          fillColor: Colors.grey,
+          border: InputBorder.none,
+          prefixIcon: Icon(Icons.search),
+          hintText: 'Search'));
 
-controller: searchTextFieldController,
-              decoration: InputDecoration(
-                  fillColor: Colors.grey,
-                  border: InputBorder.none,
-                  prefixIcon: Icon(Icons.search),
-                  hintText: 'Search'));
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    searchTextFieldController.dispose();
-    super.dispose();
-  }
+  /*
+  ******************************************************************
+  Widget List
+  ******************************************************************
+   */
 
-  Widget builderListView() =>
-      Expanded(
+  Widget builderListView() => Expanded(
           child: ListView(shrinkWrap: true, children: [
-            builderListElement(),
-            builderListElement(),
-            builderListElement(),
-            builderListElement()
-          ]));
+        builderListElement(),
+        builderListElement(),
+        builderListElement(),
+        builderListElement()
+      ]));
 
-  Widget builderListElement() =>
-      Padding(
-          padding: EdgeInsets.only(top: 2, bottom: 2),
-          child: Container(
-              height: 50,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10)),
-              child: Row(
-                children: [
-                  Text(
-                    'City Name',
-                    style: GoogleFonts.ubuntu(
-                      textStyle: TextStyle(
-                        fontSize: 30,
-                      ),
-                    ),
+  /*
+  ******************************************************************
+  Widget Element Of List
+  ******************************************************************
+   */
+  Widget builderListElement() => Padding(
+      padding: EdgeInsets.only(top: 2, bottom: 2),
+      child: Container(
+          height: 50,
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(10)),
+          child: Row(
+            children: [
+              Text(
+                'City Name',
+                style: GoogleFonts.ubuntu(
+                  textStyle: TextStyle(
+                    fontSize: 30,
                   ),
-                  Spacer(),
-                  Text(
-                    '12',
-                    style: GoogleFonts.ubuntu(
-                      textStyle: TextStyle(
-                        fontSize: 28,
-                        shadows: <Shadow>[
-                          Shadow(blurRadius: 2.0, color: Colors.black),
-                        ],
-                      ),
-                    ),
+                ),
+              ),
+              Spacer(),
+              Text(
+                '12',
+                style: GoogleFonts.ubuntu(
+                  textStyle: TextStyle(
+                    fontSize: 28,
+                    shadows: <Shadow>[
+                      Shadow(blurRadius: 2.0, color: Colors.black),
+                    ],
                   ),
-                ],
-              )));
+                ),
+              ),
+            ],
+          )));
 
-  Widget buildBlockBuilder() =>
-      BlocBuilder(builder: (context, state)
-  {
-  return HomeScreen();
-  });
-
+  /*
+  ******************************************************************
+  BLOCK BUILDER
+  ******************************************************************
+   */
+  Widget buildBlockBuilder() => BlocBuilder(builder: (context, state) {
+        if (state is HomeScreenLoading) {
+          return ListScreen();
+          //* Space for Loading widgets /\delete
+        } else if (state is HomeScreenLoaded) {
+          return ListScreen();
+          //* Space for Loaded widgets /\delete
+        } else {
+          return ListScreen();
+          //* Space for error widgets /\delete
+        }
+      });
 }

@@ -22,6 +22,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     yield HomeScreenLoading();
 
     if (event is GetSearchEvent) {
+      print(event.searchText );
       final locations = await _locationRepository.getLocations();
       // TODO implement filtering
       yield HomeScreenLoaded(locations);
