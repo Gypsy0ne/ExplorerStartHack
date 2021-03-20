@@ -6,3 +6,7 @@ abstract class DetailsScreenEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class CalendarChangeEvent extends DetailsScreenEvent
+{
+}

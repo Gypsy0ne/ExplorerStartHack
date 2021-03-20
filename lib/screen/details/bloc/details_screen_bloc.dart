@@ -13,6 +13,13 @@ class DetailsScreenBloc extends Bloc<DetailsScreenEvent, DetailsScreenState> {
   Stream<DetailsScreenState> mapEventToState(
     DetailsScreenEvent event,
   ) async* {
-    // TODO: implement mapEventToState
+    // Geting Event
+    if (event is CalendarChangeEvent) {
+      _onChangeEvent(event);
+    }
+  }
+
+  Stream<DetailsScreenBloc> _onChangeEvent(CalendarChangeEvent event) async* {
+
   }
 }
