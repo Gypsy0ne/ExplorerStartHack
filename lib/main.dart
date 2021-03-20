@@ -1,6 +1,6 @@
-import 'package:explorer_poc/home_screen/ui/home_screen.dart';
-import 'package:explorer_poc/welcome_screen/welcome_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'screen/home/ui/home_screen.dart';
 
 void main() {
   runApp(MyApp());
