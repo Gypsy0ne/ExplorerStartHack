@@ -9,6 +9,10 @@ abstract class HomeScreenState extends Equatable {
 
 class HomeScreenInitial extends HomeScreenState {}
 class HomeScreenLoading extends HomeScreenState {}
-class HomeScreenLoaded extends HomeScreenState {}
+class HomeScreenLoaded extends HomeScreenState {
+  final List<LocationDto> locations;
+
+  HomeScreenLoaded(this.locations);
+}
 
 
