@@ -122,7 +122,7 @@ class HomeScreenState extends State<HomeScreen> {
               )));
 
   Widget buildBlockBuilder() =>
-      BlocBuilder<HomeScreenBloc, HomeScreenState>(builder: (context, state)
+      BlocBuilder(builder: (context, state)
   {
   return HomeScreen();
   });
