@@ -3,11 +3,11 @@ part of 'home_screen_bloc.dart';
 abstract class HomeScreenEvent extends Equatable {
   const HomeScreenEvent();
 }
-class GetSearchEvent extends Equatable {
+
+class GetSearchEvent extends HomeScreenEvent {
   final String searchText;
-  GetSearchEvent(this.searchText)
+  GetSearchEvent(this.searchText);
 
   @override
   List<Object> get props => [searchText];
 }
-

@@ -125,5 +125,6 @@ class HomeScreenState extends State<HomeScreen> {
       BlocBuilder<HomeScreenBloc, HomeScreenState>(builder: (context, state)
   {
   return HomeScreen();
-  }
+  });
+
 }
