@@ -55,7 +55,6 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenBlocState> {
     }
 
     final locations = fetchedLocations.where((element) => element.name.toLowerCase().contains(event.searchText.toLowerCase())).toList();
-
     yield HomeScreenLoaded(locations);
 
   }
