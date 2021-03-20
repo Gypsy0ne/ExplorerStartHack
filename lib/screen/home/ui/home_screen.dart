@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
 
 class HomeScreenProvider extends StatelessWidget {
   @override
@@ -22,17 +23,11 @@ final searchTextFieldController = TextEditingController();
 
 class HomeScreenState extends State<HomeScreen> {
   _getSearch() {
-    print("wyszukuje małe chuje hehe " + searchTextFieldController.text);
     BlocProvider.of<HomeScreenBloc>(context)
         .add(GetSearchEvent(searchTextFieldController.text));
   }
 
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    searchTextFieldController.dispose();
-    super.dispose();
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +41,16 @@ class HomeScreenState extends State<HomeScreen> {
               builderListView()
             ])));
   }
+  @override void initState() {
+    super.initState();
+    KeyboardVisibilityNotification().addNewListener(
+      onChange: (bool visible) {
+        _getSearch();
+      },
+    );
+  }
 
-  Widget buildSearchFieldWithFadeInAnimation() =>
+      Widget buildSearchFieldWithFadeInAnimation() =>
       TweenAnimationBuilder(
         child: buildSearchField(),
         tween: Tween<double>(begin: 0, end: 1),
@@ -65,13 +68,21 @@ class HomeScreenState extends State<HomeScreen> {
    TextField(
               maxLength: 50,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              onEditingComplete: _getSearch(),
+       onEditingComplete: () {
+         _getSearch();},
+
+controller: searchTextFieldController,
               decoration: InputDecoration(
                   fillColor: Colors.grey,
                   border: InputBorder.none,
                   prefixIcon: Icon(Icons.search),
                   hintText: 'Search'));
-
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    searchTextFieldController.dispose();
+    super.dispose();
+  }
 
   Widget builderListView() =>
       Expanded(
@@ -89,27 +100,21 @@ class HomeScreenState extends State<HomeScreen> {
               height: 50,
               decoration: BoxDecoration(
                   color: Colors.white,
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(blurRadius: 8, color: Colors.black45)
-                  ],
                   borderRadius: BorderRadius.circular(10)),
               child: Row(
                 children: [
                   Text(
                     'City Name',
-                    style: GoogleFonts.cormorantUnicase(
+                    style: GoogleFonts.ubuntu(
                       textStyle: TextStyle(
                         fontSize: 30,
-                        shadows: <Shadow>[
-                          Shadow(blurRadius: 2.0, color: Colors.black),
-                        ],
                       ),
                     ),
                   ),
                   Spacer(),
                   Text(
                     '12',
-                    style: GoogleFonts.cormorantUnicase(
+                    style: GoogleFonts.ubuntu(
                       textStyle: TextStyle(
                         fontSize: 28,
                         shadows: <Shadow>[

@@ -17,6 +17,10 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
 
    if (event is GetSearchEvent)
    {
+     yield HomeScreenLoading();
+     print(event.searchText);
+
+     yield HomeScreenLoaded();
 
      
    }

@@ -6,8 +6,10 @@ abstract class HomeScreenEvent extends Equatable {
 
 class GetSearchEvent extends HomeScreenEvent {
   final String searchText;
+
   GetSearchEvent(this.searchText);
 
   @override
   List<Object> get props => [searchText];
+
 }
