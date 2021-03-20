@@ -6,6 +6,8 @@ abstract class LocationRepository {
   // TODO inject it
   final LocationDataSource _dataSource = SbbLocationDataSource();
 
-  List<LocationDto> getLocations() =>
-      _dataSource.getLocations().map((entity) => entity.toDto());
+  Future<List<LocationDto>> getLocations() async {
+    var locations = await _dataSource.getLocations();
+    return locations.map((entity) => entity.toDto());
+  }
 }
