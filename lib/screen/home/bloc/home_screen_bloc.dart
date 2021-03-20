@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:explorer_start_hack/model/location_dto.dart';
 import 'package:explorer_start_hack/repository/location_repository.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 part 'home_screen_event.dart';
 
