@@ -54,7 +54,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenBlocState> {
       fetchedLocations = await _getLocationsAndCache();
     }
 
-    final locations = fetchedLocations.where((element) => element.name.toLowerCase().contains(event.searchText.toLowerCase())).toList();
+    final locations = fetchedLocations.where((element) => element.facility.toLowerCase().contains(event.searchText.toLowerCase())).toList();
     yield HomeScreenLoaded(locations);
 
   }

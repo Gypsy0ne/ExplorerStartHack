@@ -39,7 +39,7 @@ class HomeLoadedScreen extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                itemData.name,
+                itemData.facility,
                 style: GoogleFonts.ubuntu(
                   textStyle: TextStyle(
                     fontSize: 30,
@@ -48,7 +48,7 @@ class HomeLoadedScreen extends StatelessWidget {
               ),
               Spacer(),
               Text(
-                itemData.totalFreeSpaces.toString(),
+                itemData.maxSpots.toString(),
                 style: GoogleFonts.ubuntu(
                   textStyle: TextStyle(
                     fontSize: 28,
