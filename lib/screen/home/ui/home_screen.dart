@@ -1,6 +1,8 @@
+import 'package:explorer_poc/screen/home/bloc/home_screen_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -8,7 +10,14 @@ class HomeScreen extends StatefulWidget {
   State<StatefulWidget> createState() => HomeScreenState();
 }
 
-class HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+  _getSearch() {
+    final searchTextFieldController = TextEditingController();
+
+    BlocProvider.of<HomeScreenBloc>(context).add(GetSearchEvent(searchTextFieldController.text));
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,9 +54,8 @@ Widget buildSearchField() => TextField(
         prefixIcon: Icon(Icons.search),
         hintText: 'Search'));
 
-Widget builderListView() => Expanded( child:ListView(
-    shrinkWrap: true,
-    children: [
+Widget builderListView() => Expanded(
+        child: ListView(shrinkWrap: true, children: [
       builderListElement(),
       builderListElement(),
       builderListElement(),
@@ -58,19 +66,18 @@ Widget builderListElement() => Padding(
     padding: EdgeInsets.only(top: 2, bottom: 2),
     child: Container(
         height: 50,
-        decoration:
-        BoxDecoration(
-          color: Colors.white,
+        decoration: BoxDecoration(
+            color: Colors.white,
             boxShadow: <BoxShadow>[
-          BoxShadow(blurRadius: 8, color: Colors.black45)
-        ], borderRadius: BorderRadius.circular(10)),
+              BoxShadow(blurRadius: 8, color: Colors.black45)
+            ],
+            borderRadius: BorderRadius.circular(10)),
         child: Row(
           children: [
             Text(
               'City Name',
               style: GoogleFonts.cormorantUnicase(
                 textStyle: TextStyle(
-
                   fontSize: 30,
                   shadows: <Shadow>[
                     Shadow(blurRadius: 2.0, color: Colors.black),
