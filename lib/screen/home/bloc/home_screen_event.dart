@@ -13,3 +13,9 @@ class GetSearchEvent extends HomeScreenEvent {
   List<Object> get props => [searchText];
 
 }
+
+class LoadLocationsEvent extends HomeScreenEvent {
+
+  @override
+  List<Object> get props => [];
+}
