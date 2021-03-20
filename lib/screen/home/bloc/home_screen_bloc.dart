@@ -9,14 +9,14 @@ part 'home_screen_event.dart';
 
 part 'home_screen_state.dart';
 
-class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
-  HomeScreenBloc() : super(HomeScreenInitial());
+class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenBlocState> {
+  HomeScreenBloc() : super(HomeScreenLoading());
 
   // TODO inject it
   final LocationRepository _locationRepository = LocationRepository();
 
   @override
-  Stream<HomeScreenState> mapEventToState(
+  Stream<HomeScreenBlocState> mapEventToState(
     HomeScreenEvent event,
   ) async* {
     yield HomeScreenLoading();
@@ -28,6 +28,5 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
       yield HomeScreenLoaded(locations);
     }
   }
-
 }
 
