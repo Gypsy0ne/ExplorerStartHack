@@ -27,7 +27,11 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
       buildCalendarButton()
     ]);
   }
-
+  List<Color> gradientColors = [
+    const Color(0xff23b6e6),
+    const Color(0xff02d39a),
+   
+  ];
 
   Widget buildPercentageContainer() => Expanded(
       child: Container(
@@ -47,8 +51,7 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
           )));
 
   Widget buildLineChart() {
-    var y1 = null;
-        return LineChart(  
+          return LineChart(  
             LineChartData(
            borderData:
           FlBorderData(show: true, border: Border.all(color: const Color(0xff37434d), width: 1)),
@@ -67,12 +70,15 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
             ],
           isCurved: true,
           barWidth: 5,
+          colors:  gradientColors,
           curveSmoothness: 0.2,
             isStrokeCapRound: true,
           dotData: FlDotData(
             show: false,
           ),
           belowBarData: BarAreaData(
+            colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+          
             show: true,
           ),
         ),
