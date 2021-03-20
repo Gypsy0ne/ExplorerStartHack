@@ -26,6 +26,12 @@ class HomeScreenState extends State<HomeScreen> {
     BlocProvider.of<HomeScreenBloc>(context)
         .add(GetSearchEvent(searchTextFieldController.text));
   }
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<HomeScreenBloc>(context)
+        .add(GetSearchEvent(searchTextFieldController.text));
+  }
 
   @override
   void dispose() {
