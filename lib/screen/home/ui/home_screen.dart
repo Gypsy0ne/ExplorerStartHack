@@ -163,9 +163,11 @@ Override method for build
         _getSearch();
       },
       maxLength: 50,
+      
       maxLengthEnforcement: MaxLengthEnforcement.enforced,
       controller: searchTextFieldController,
       decoration: InputDecoration(
+        counterText: '',
           fillColor: Colors.grey,
           border: InputBorder.none,
           prefixIcon: Icon(Icons.search),
@@ -232,7 +234,7 @@ Override method for build
           //* Space for Loading widgets /\delete
         } else if (state is HomeScreenLoaded) {
           return ListScreen();
-          //* Space for Loaded widgets /\delete
+
         } else {
           return ListScreen();
           //* Space for error widgets /\delete
