@@ -20,31 +20,23 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenBlocState> {
     HomeScreenEvent event,
   ) async* {
     if (event is GetSearchEvent) {
-      //Search input
-      print( event.searchText);
-
-      yield HomeScreenLoading();
-      final locations = await _locationRepository.getLocations();
-      yield HomeScreenLoaded(locations);
+      yield* _onSearchEvent(event);
     }
 
     if (event is LoadLocationsEvent) {
-      yield HomeScreenLoading();
-      final locations = await _locationRepository.getLocations();
-      yield HomeScreenLoaded(locations);
+      yield* _onLoadLocationsEvent(event);
     }
   }
 
-  _onLoadLocationsEvent(HomeScreenEvent event) {
-    // yield HomeScreenLoading();
-    // final locations = await _locationRepository.getLocations();
-    // yield HomeScreenLoaded(locations);
+  Stream<HomeScreenBlocState>_onLoadLocationsEvent(HomeScreenEvent event) async* {
+    yield HomeScreenLoading();
+    final locations = await _locationRepository.getLocations();
+    yield HomeScreenLoaded(locations);
   }
 
-  _onSearchEvent(HomeScreenEvent event) {
-    // print(event.searchText );
-    // final locations = await _locationRepository.getLocations();
-    // // TODO implement filtering
-    // yield HomeScreenLoaded(locations);
+  Stream<HomeScreenBlocState>_onSearchEvent(GetSearchEvent event) async* {
+    yield HomeScreenLoading();
+    final locations = await _locationRepository.getLocations();
+    yield HomeScreenLoaded(locations.where((element) => element.name.contains(event.searchText)).toList());
   }
 }
