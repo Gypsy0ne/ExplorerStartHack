@@ -32,7 +32,8 @@ class HomeLoadedScreen extends StatelessWidget {
   _locationListTile(LocationDto itemData) => Padding(
       padding: EdgeInsets.only(top: 2, bottom: 2),
       child: Container(
-          height: 50,
+        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          height: 80,
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(10)),
           child: Row(
