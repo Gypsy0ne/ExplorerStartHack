@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:explorer_poc/screen/home/ui/home_screen.dart';
 
 part 'home_screen_event.dart';
 part 'home_screen_state.dart';
