@@ -5,17 +5,33 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+class HomeScreenProvider extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+        create: (context) => HomeScreenBloc(), child: HomeScreen());
+  }
+}
+
 class HomeScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => HomeScreenState();
 }
 
-class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+final searchTextFieldController = TextEditingController();
+
+class HomeScreenState extends State<HomeScreen> {
   _getSearch() {
-    final searchTextFieldController = TextEditingController();
-print("wyszukuje małe chuje hehe " + searchTextFieldController.text);
-    BlocProvider.of<HomeScreenBloc>(context).add(
-        GetSearchEvent(searchTextFieldController.text));
+    print("wyszukuje małe chuje hehe " + searchTextFieldController.text);
+    BlocProvider.of<HomeScreenBloc>(context)
+        .add(GetSearchEvent(searchTextFieldController.text));
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    searchTextFieldController.dispose();
+    super.dispose();
   }
 
   @override
@@ -31,7 +47,6 @@ print("wyszukuje małe chuje hehe " + searchTextFieldController.text);
             ])));
   }
 
-
   Widget buildSearchFieldWithFadeInAnimation() =>
       TweenAnimationBuilder(
         child: buildSearchField(),
@@ -40,22 +55,23 @@ print("wyszukuje małe chuje hehe " + searchTextFieldController.text);
         builder: (BuildContext context, double _value, Widget child) {
           return Opacity(
             opacity: _value,
-            child:
-            Padding(padding: EdgeInsets.only(top: _value * 20), child: child),
+            child: Padding(
+                padding: EdgeInsets.only(top: _value * 20), child: child),
           );
         },
       );
 
   Widget buildSearchField() =>
-      TextField(
-          maxLength: 50,
-          maxLengthEnforcement: MaxLengthEnforcement.enforced,
-          onEditingComplete: _getSearch(),
-          decoration: InputDecoration(
-              fillColor: Colors.grey,
-              border: InputBorder.none,
-              prefixIcon: Icon(Icons.search),
-              hintText: 'Search'));
+   TextField(
+              maxLength: 50,
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,
+              onEditingComplete: _getSearch(),
+              decoration: InputDecoration(
+                  fillColor: Colors.grey,
+                  border: InputBorder.none,
+                  prefixIcon: Icon(Icons.search),
+                  hintText: 'Search'));
+
 
   Widget builderListView() =>
       Expanded(
@@ -104,4 +120,10 @@ print("wyszukuje małe chuje hehe " + searchTextFieldController.text);
                   ),
                 ],
               )));
+
+  Widget buildBlockBuilder() =>
+      BlocBuilder<HomeScreenBloc, HomeScreenState>(builder: (context, state)
+  {
+  return HomeScreen();
+  }
 }
