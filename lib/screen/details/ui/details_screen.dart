@@ -1,17 +1,17 @@
+import 'package:explorer_start_hack/screen/details/bloc/details_screen_bloc.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("place for City name"),
-        ),
-        body: DetailsScreenBody());
+    return DetailsScreenBody();
   }
+  
 }
 
 class DetailsScreenBody extends StatefulWidget {
@@ -19,27 +19,50 @@ class DetailsScreenBody extends StatefulWidget {
   State<StatefulWidget> createState() => DetailsScreenBodyState();
 }
 
-class DetailsScreenBodyState extends State<DetailsScreenBody> {
 
+class DetailsScreenBodyState extends State<DetailsScreenBody> {
   List<Color> gradientColors = [Colors.red, Colors.yellow, Colors.green];
 
+  _calendarChange(DateTime dateTime) =>
+      BlocProvider.of<DetailsScreenBloc>(context);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      buildCalendarButton(),
-      Center(child: buildLineChart()),
-      buildCalendarButton()
-    ]);
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("place for City name"),
+        ),
+        body: _detailsScreen());
+  }
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<DetailsScreenBloc>(context).add(LoadChartEvent());
   }
 
+  Widget _detailsScreen() => Column(children: [
+        buildCalendarButton(),
+        BlocBuilder<DetailsScreenBloc, DetailsScreenState>(
+          builder: (context, state) {
+            if (state is DetailsScreenLoading) {
+              return buildLoadingAnimation();
+            } else if (state is DetailsScreenLoaded) {
+              return Center(child: buildLineChart());
+            } else {
+              return Container(child: Text("Error try again later :("));
+            }
+          },
+        )
+      ]);
 
   Widget buildCalendarButton() => Align(
       alignment: Alignment.topRight,
       child: InkWell(
           onTap: () {
-            print("dialog with calendar");
+
+
           },
+           
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [Text("data"), Icon(Icons.calendar_today)],
@@ -112,4 +135,14 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
           ),
         ],
       )));
+
+  Widget buildLoadingAnimation() => CircularProgressIndicator();
+
+  Widget buildDataPicker() => Dialog(
+      child: CupertinoDatePicker(
+          mode: CupertinoDatePickerMode.date,
+          onDateTimeChanged: (dateTime) {
+            _calendarChange(dateTime);
+          }));
+
 }

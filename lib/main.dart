@@ -1,3 +1,4 @@
+import 'package:explorer_start_hack/screen/details/bloc/details_screen_bloc.dart';
 import 'dart:io';
 
 import 'package:explorer_start_hack/http_overrides.dart';
@@ -19,10 +20,14 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: BlocProvider(
-        create: (context) => HomeScreenBloc(),
-        child: HomeScreen()
-      )
+        home: MultiBlocProvider(providers: [
+ BlocProvider<HomeScreenBloc>(
+      create: (BuildContext context) => HomeScreenBloc(),),
+   BlocProvider<DetailsScreenBloc>(
+      create: (BuildContext context) => DetailsScreenBloc(),
+    )],
+            child: HomeScreen())
+
     );
   }
 }
