@@ -47,12 +47,9 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
           )));
 
   Widget buildLineChart() {
- 
+    var y1 = null;
         return LineChart(  
             LineChartData(
-              
-             
-  
            borderData:
           FlBorderData(show: true, border: Border.all(color: const Color(0xff37434d), width: 1)),
           minX: 0, minY: 0, maxY: 100,
