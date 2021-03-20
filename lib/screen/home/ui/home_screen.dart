@@ -35,6 +35,13 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<HomeScreenBloc>(context).add(LoadLocationsEvent());
+        // .add(GetSearchEvent(searchTextFieldController.text));
+  }
+
   Widget _homeScreenBody() => Column(
         children: [
           _searchFieldWithFadeInAnimation(),
@@ -42,8 +49,10 @@ class HomeScreenState extends State<HomeScreen> {
             builder: (context, state) {
               if(state is HomeScreenLoading) {
                 return HomeLoadingScreen();
+              } else if(state is HomeScreenLoaded) {
+                return HomeLoadedScreen(state.locations);
               } else {
-                return HomeLoadedScreen();
+                return Container();
               }
             },
           )
