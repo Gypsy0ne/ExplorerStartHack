@@ -1,8 +1,8 @@
-part of 'details_screen_cubit.dart';
+part of 'details_screen_bloc.dart';
 
 abstract class DetailsScreenState extends Equatable {
   const DetailsScreenState();
-
+  
   @override
   List<Object> get props => [];
 }

@@ -19,7 +19,14 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenBlocState> {
   Stream<HomeScreenBlocState> mapEventToState(
     HomeScreenEvent event,
   ) async* {
+    if (event is GetSearchEvent) {
+      //Search input
+      print( event.searchText);
 
+      yield HomeScreenLoading();
+      final locations = await _locationRepository.getLocations();
+      yield HomeScreenLoaded(locations);
+    }
 
     if (event is LoadLocationsEvent) {
       yield HomeScreenLoading();
@@ -35,11 +42,9 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenBlocState> {
   }
 
   _onSearchEvent(HomeScreenEvent event) {
-      // print(event.searchText );
-      // final locations = await _locationRepository.getLocations();
-      // // TODO implement filtering
-      // yield HomeScreenLoaded(locations);
+    // print(event.searchText );
+    // final locations = await _locationRepository.getLocations();
+    // // TODO implement filtering
+    // yield HomeScreenLoaded(locations);
   }
-
 }
-

@@ -73,9 +73,11 @@ class HomeScreenState extends State<HomeScreen> {
       );
 
   Widget _searchField() => TextField(
-      onChanged: (value) {
+      onEditingComplete: () {
         _getSearch();
+        FocusScope.of(context).unfocus();
       },
+      textInputAction: TextInputAction.next,
       maxLength: 50,
       maxLengthEnforcement: MaxLengthEnforcement.enforced,
       controller: searchTextFieldController,
