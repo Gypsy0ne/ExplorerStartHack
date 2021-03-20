@@ -14,12 +14,16 @@ class DetailsScreenBloc extends Bloc<DetailsScreenEvent, DetailsScreenState> {
     DetailsScreenEvent event,
   ) async* {
     // Geting Event
-    if (event is CalendarChangeEvent) {
-      _onChangeEvent(event);
+    if (event is LoadChartEvent || event is CalendarChangeEvent) {
+      _loadChartEvent(event);
     }
   }
 
-  Stream<DetailsScreenBloc> _onChangeEvent(CalendarChangeEvent event) async* {
-
   }
-}
+  Stream<DetailsScreenState> _loadChartEvent(LoadChartEvent event) async* {
+    yield DetailsScreenLoading();
+    // get data from database final prop = await _getProps
+    yield DetailsScreenLoaded();
+  }
+
+

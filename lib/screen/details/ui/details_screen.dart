@@ -9,11 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("place for City name"),
-        ),
-        body: DetailsScreenBody());
+    return DetailsScreenBody();
   }
   
 }
@@ -32,7 +28,16 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
 
   @override
   Widget build(BuildContext context) {
-    return _detailsScreen();
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("place for City name"),
+        ),
+        body: _detailsScreen());
+  }
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<DetailsScreenBloc>(context).add(LoadChartEvent());
   }
 
   Widget _detailsScreen() => Column(children: [

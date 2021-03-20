@@ -1,3 +1,4 @@
+import 'package:explorer_start_hack/screen/details/bloc/details_screen_bloc.dart';
 import 'package:explorer_start_hack/screen/home/bloc/home_screen_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,10 +16,14 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: BlocProvider(
-        create: (context) => HomeScreenBloc(),
-        child: HomeScreen()
-      )
+        home: MultiBlocProvider(providers: [
+ BlocProvider<HomeScreenBloc>(
+      create: (BuildContext context) => HomeScreenBloc(),),
+   BlocProvider<DetailsScreenBloc>(
+      create: (BuildContext context) => DetailsScreenBloc(),       
+    )],
+            child: HomeScreen())
+      
     );
   }
 }

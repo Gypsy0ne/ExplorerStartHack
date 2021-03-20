@@ -9,4 +9,9 @@ abstract class DetailsScreenEvent extends Equatable {
 
 class CalendarChangeEvent extends DetailsScreenEvent
 {
+
+}
+class LoadChartEvent extends DetailsScreenEvent
+{
+
 }
