@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class DetailsScreen extends StatelessWidget {
   @override
@@ -19,25 +20,19 @@ class DetailsScreenBody extends StatefulWidget {
 }
 
 class DetailsScreenBodyState extends State<DetailsScreenBody> {
+
+  List<Color> gradientColors = [Colors.red, Colors.yellow, Colors.green];
+
+
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
       buildCalendarButton(),
-      Column(children: [buildLineChart(), buildPercentageContainer()]),
+      Center(child: buildLineChart()),
       buildCalendarButton()
     ]);
   }
-  List<Color> gradientColors = [
-    const Color(0xff23b6e6),
-    const Color(0xff02d39a),
-   
-  ];
 
-  Widget buildPercentageContainer() => Expanded(
-      child: Container(
-          color: Colors.blue,
-          alignment: Alignment.center,
-          child: Icon(Icons.pregnant_woman)));
 
   Widget buildCalendarButton() => Align(
       alignment: Alignment.topRight,
@@ -50,17 +45,49 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
             children: [Text("data"), Icon(Icons.calendar_today)],
           )));
 
-  Widget buildLineChart() {
-          return LineChart(  
-            LineChartData(
-           borderData:
-          FlBorderData(show: true, border: Border.all(color: const Color(0xff37434d), width: 1)),
-          minX: 0, minY: 0, maxY: 100,
-
-
-          lineBarsData: [      
+  Widget buildLineChart() => Container(
+      padding: EdgeInsets.all(20),
+      width: MediaQuery.of(context).size.width,
+      child: LineChart(LineChartData(
+        borderData: FlBorderData(
+            show: true,
+            border: Border.all(color: const Color(0xff37434d), width: 1)),
+        minX: 0,
+        minY: 0,
+        maxY: 100,
+        titlesData: FlTitlesData(
+            show: true,
+            bottomTitles: SideTitles(
+              showTitles: true,
+              reservedSize: 22,
+              getTextStyles: (value) => const TextStyle(
+                  color: Color(0xff68737d),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 10),
+              getTitles: (value) {
+                if (value.toInt() % 3 == 1) {
+                  return value.toInt().toString() + ':00';
+                }
+                return '';
+              },
+            ),
+            leftTitles: SideTitles(
+              showTitles: true,
+              reservedSize: 19,
+              getTextStyles: (value) => const TextStyle(
+                  color: Color(0xff68737d),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 10),
+              getTitles: (value) {
+                if (value.toInt() % 10 == 0) {
+                  return value.toInt().toString() + '%';
+                }
+                return '';
+              },
+            )),
+        lineBarsData: [
           LineChartBarData(
-                      spots: [
+            spots: [
               FlSpot(0, 90),
               FlSpot(2, 20),
               FlSpot(5, 50),
@@ -68,22 +95,21 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
               FlSpot(23, 10),
               FlSpot(24, 20),
             ],
-          isCurved: true,
-          barWidth: 5,
-          colors:  gradientColors,
-          curveSmoothness: 0.2,
+            isCurved: true,
+            barWidth: 5,
+            colors:
+                gradientColors.map((color) => color.withOpacity(0.6)).toList(),
             isStrokeCapRound: true,
-          dotData: FlDotData(
-            show: false,
+            dotData: FlDotData(
+              show: false,
+            ),
+            belowBarData: BarAreaData(
+              colors: gradientColors
+                  .map((color) => color.withOpacity(0.4))
+                  .toList(),
+              show: true,
+            ),
           ),
-          belowBarData: BarAreaData(
-            colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
-          
-            show: true,
-          ),
-        ),
-      ],
-        
-      ));
-  }
+        ],
+      )));
 }
