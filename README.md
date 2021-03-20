@@ -1,4 +1,4 @@
-# explorer_poc
+# explorer_start_hack
 
 A new Flutter application.
 
