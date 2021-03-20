@@ -14,13 +14,15 @@ class HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: Text("SBB explorer"),
         ),
-        body: Column(children:
-            [buildSearchField(),
+        body:
+        Center(child: Column(
+            children:
+            [buildSearchFieldWithFadeInAnimation(),
 
-        ListView(
+              builderListView(
 
 
-        )]));
+        )])));
   }
 }
 
@@ -41,11 +43,17 @@ Widget buildSearchFieldWithFadeInAnimation() =>
 
 Widget buildSearchField() =>
   TextField(
+      maxLength: 50,
 
-      maxLength: 20,
       maxLengthEnforcement: MaxLengthEnforcement.enforced,
       decoration: InputDecoration(
+        fillColor: Colors.grey,
+
           border: InputBorder.none,
           prefixIcon: Icon(Icons.search),
           hintText: 'Search'));
+
+Widget builderListView() =>
+    ListView(
+    );
 
