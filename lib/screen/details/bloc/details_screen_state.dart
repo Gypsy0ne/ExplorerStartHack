@@ -15,5 +15,6 @@ class DetailsScreenLoading extends DetailsScreenState
 {}
 
 class DetailsScreenLoaded extends DetailsScreenState {
+  DetailsScreenLoaded();
 
 }

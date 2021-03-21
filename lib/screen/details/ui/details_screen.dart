@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'dart:math';
 
 import 'package:explorer_start_hack/screen/details/bloc/details_screen_bloc.dart';
@@ -17,6 +18,8 @@ class DetailsScreenBody extends StatefulWidget {
 
 class DetailsScreenBodyState extends State<DetailsScreenBody> {
   List<Color> gradientColors = [Colors.red, Colors.yellow, Colors.green];
+
+
 
   _calendarChange(DateTime dateTime) =>
       BlocProvider.of<DetailsScreenBloc>(context);
@@ -45,7 +48,7 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
             } else if (state is DetailsScreenLoading) {
               return buildLoadingAnimation();
             } else if (state is DetailsScreenLoaded) {
-              return Center(child: buildLineChart());
+              return Center(child: buildLineChart((state as DetailsScreenLoaded)));
             } else {
               return Container(child: Text("Error try again later :("));
             }
@@ -62,7 +65,7 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
             children: [Text("data"), Icon(Icons.calendar_today)],
           )));
 
-  Widget buildLineChart() => Container(
+  Widget buildLineChart(Map<int, double> spots) => Container(
       padding: EdgeInsets.all(20),
       width: MediaQuery.of(context).size.width,
       child: LineChart(LineChartData(
@@ -111,14 +114,7 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
             )),
         lineBarsData: [
           LineChartBarData(
-            spots: [
-              FlSpot(0, 2),
-              FlSpot(2, 1),
-              FlSpot(5, 0),
-              FlSpot(10, 2),
-              FlSpot(23, 1),
-              FlSpot(24, 0),
-            ],
+            spots: spots.entries.map((entry) => FlSpot(entry.key.toDouble(), entry.value)).toList(),
             isCurved: true,
             barWidth: 5,
             colors:
