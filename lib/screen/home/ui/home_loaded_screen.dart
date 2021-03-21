@@ -60,5 +60,3 @@ class HomeLoadedScreen extends StatelessWidget {
             ],
           )));
 }
-
-

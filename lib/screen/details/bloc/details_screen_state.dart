@@ -8,9 +8,12 @@ abstract class DetailsScreenState extends Equatable {
 }
 
 class DetailsScreenInitial extends DetailsScreenState {}
+
 class DetailsScreenLoading extends DetailsScreenState {}
 
 class DetailsScreenLoaded extends DetailsScreenState { 
-  
+   final List<List> preds;
 
+  DetailsScreenLoaded(this.preds);
 }
+  

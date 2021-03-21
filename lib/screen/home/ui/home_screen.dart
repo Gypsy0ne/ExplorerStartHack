@@ -28,6 +28,7 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
+
   @override
   void initState() {
     super.initState();
@@ -52,6 +53,7 @@ class HomeScreenState extends State<HomeScreen> {
             bloc: BlocProvider.of<HomeScreenBloc>(context),
             child: BlocBuilder<HomeScreenBloc, HomeScreenBlocState>(
               builder: (context, state) {
+
                 if (state is HomeScreenLoading) {
                   return HomeLoadingScreen();
                 } else if (state is HomeScreenLoaded) {
