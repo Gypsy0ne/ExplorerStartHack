@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:explorer_start_hack/screen/details/bloc/details_screen_bloc.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
@@ -69,7 +71,7 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
             border: Border.all(color: const Color(0xff37434d), width: 1)),
         minX: 0,
         minY: 0,
-        maxY: 100,
+        maxY: 4,
         titlesData: FlTitlesData(
             show: true,
             bottomTitles: SideTitles(
@@ -94,21 +96,28 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
                   fontWeight: FontWeight.bold,
                   fontSize: 10),
               getTitles: (value) {
-                if (value.toInt() % 10 == 0) {
-                  return value.toInt().toString() + '%';
+
+                switch (value.toInt()) {
+                  case 0:
+                    return 'Low';
+                  case 1:
+                    return 'Medium';
+                  case 2:
+                    return 'High';
                 }
                 return '';
               },
+
             )),
         lineBarsData: [
           LineChartBarData(
             spots: [
-              FlSpot(0, 90),
-              FlSpot(2, 20),
-              FlSpot(5, 50),
-              FlSpot(10, 70),
-              FlSpot(23, 10),
-              FlSpot(24, 20),
+              FlSpot(0, 2),
+              FlSpot(2, 1),
+              FlSpot(5, 0),
+              FlSpot(10, 2),
+              FlSpot(23, 1),
+              FlSpot(24, 0),
             ],
             isCurved: true,
             barWidth: 5,

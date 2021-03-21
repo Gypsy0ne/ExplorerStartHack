@@ -23,6 +23,8 @@ class DetailsScreenBloc extends Bloc<DetailsScreenEvent, DetailsScreenState> {
 
 Stream<DetailsScreenState> _loadChartEvent(LoadChartEvent event) async* {
   yield DetailsScreenLoading();
+
+
   // get data from database final prop = await _getProps
   yield DetailsScreenLoaded();
 }

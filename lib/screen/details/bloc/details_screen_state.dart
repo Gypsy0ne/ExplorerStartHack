@@ -7,10 +7,13 @@ abstract class DetailsScreenState extends Equatable {
   List<Object> get props => [];
 }
 
-class DetailsScreenInitial extends DetailsScreenState {}
-class DetailsScreenLoading extends DetailsScreenState {}
+class DetailsScreenInitial extends DetailsScreenState
 
-class DetailsScreenLoaded extends DetailsScreenState { 
-  
+{}
+class DetailsScreenLoading extends DetailsScreenState
+
+{}
+
+class DetailsScreenLoaded extends DetailsScreenState {
 
 }
