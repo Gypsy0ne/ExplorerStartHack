@@ -14,7 +14,7 @@ class DetailsScreenBody extends StatefulWidget {
 }
 
 class DetailsScreenBodyState extends State<DetailsScreenBody> {
-  List<Color> gradientColors = [Colors.red, Colors.yellow, Colors.green];
+  List<Color> gradientColors = [Colors.blue, Colors.blueAccent];
 
   DateTime date = DateTime.now();
 
@@ -22,7 +22,8 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
   DetailsScreenBodyState(this.facilityName);
 
   _calendarChange(DateTime dateTime) =>
-      BlocProvider.of<DetailsScreenBloc>(context);
+      BlocProvider.of<DetailsScreenBloc>(context).add(LoadChartEvent(this.facilityName,
+          '${date.year}-${date.month}-${date.day}-${date.hour}'));
 
   @override
   Widget build(BuildContext context) {
@@ -86,8 +87,8 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
             show: true,
             border: Border.all(color: const Color(0xff37434d), width: 1)),
         minX: 0,
-        minY: 0,
-        maxY: 4,
+        minY: -0.05,
+        maxY: 2.5,
         titlesData: FlTitlesData(
             show: true,
             bottomTitles: SideTitles(
@@ -128,7 +129,7 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
         lineBarsData: [
           LineChartBarData(
             spots: spots.entries.map((entry) => FlSpot(entry.key.toDouble(), entry.value)).toList(),
-            isCurved: true,
+            isCurved: false,
             barWidth: 5,
             colors:
                 gradientColors.map((color) => color.withOpacity(0.6)).toList(),
@@ -152,7 +153,7 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
       body: CupertinoDatePicker(
   mode: CupertinoDatePickerMode.date,
   onDateTimeChanged: (dateTime) {
-    LoadChartEvent( this.facilityName ,'${dateTime.year}-${dateTime.month}-${dateTime.day}-${date.hour}');
+    _calendarChange(dateTime);
   }
       ));
 }
