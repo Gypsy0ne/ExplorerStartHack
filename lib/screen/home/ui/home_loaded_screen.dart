@@ -74,7 +74,6 @@ class HomeLoadedScreen extends StatelessWidget {
           return Colors.yellow;
         }
         break;
-
         case 2: {
           return Colors.green;
         }

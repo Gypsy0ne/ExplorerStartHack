@@ -21,7 +21,7 @@ class HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("SBB explorer"),
+        title: Text("SBB Avalier"),
         backgroundColor: Colors.redAccent,
       ),
       body: _homeScreenBody(),
