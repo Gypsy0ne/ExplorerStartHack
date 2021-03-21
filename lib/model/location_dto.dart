@@ -12,7 +12,7 @@ class LocationDto extends Equatable {
   List<Object> get props => [facility, maxSpots, takenAll];
 }
 
-extension LocationEntityMapping on LocationEntity {
+extension EntityMapping on LocationEntity {
   LocationDto toDto() {
     return LocationDto(this.facility, this.maxSpots, this.takenAll);
   }
