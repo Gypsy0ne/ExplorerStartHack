@@ -13,6 +13,6 @@ class DetailsScreenLoading extends DetailsScreenState {}
 class DetailsScreenLoaded extends DetailsScreenState { 
   final LocationDetailDto details;
 
-  DetailsScreenLoaded();
+  DetailsScreenLoaded(this.details);
 
 }

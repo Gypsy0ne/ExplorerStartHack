@@ -1,4 +1,4 @@
-import 'dart:html';
+
 
 import 'package:explorer_start_hack/screen/details/bloc/details_screen_bloc.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -14,12 +14,14 @@ class DetailsScreenBody extends StatefulWidget {
   DetailsScreenBody(this.facilityName);
 
   @override
-  State<StatefulWidget> createState() => DetailsScreenBodyState();
+  State<StatefulWidget> createState() => DetailsScreenBodyState(this.facilityName);
 }
 
 class DetailsScreenBodyState extends State<DetailsScreenBody> {
   List<Color> gradientColors = [Colors.red, Colors.yellow, Colors.green];
 
+  final String facilityName;
+  DetailsScreenBodyState(this.facilityName);
 
 
   _calendarChange(DateTime dateTime) =>
@@ -37,7 +39,7 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<DetailsScreenBloc>(context).add(LoadChartEvent());
+    BlocProvider.of<DetailsScreenBloc>(context).add(LoadChartEvent('2021-03-21-10', this.facilityName ));
   }
 
   Widget _detailsScreen() => Column(children: [
