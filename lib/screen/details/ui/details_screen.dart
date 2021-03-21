@@ -39,7 +39,7 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<DetailsScreenBloc>(context).add(LoadChartEvent('2021-03-21-10', this.facilityName ));
+    BlocProvider.of<DetailsScreenBloc>(context).add(LoadChartEvent(this.facilityName, '2021-03-21-10' ));
   }
 
   Widget _detailsScreen() => Column(children: [
