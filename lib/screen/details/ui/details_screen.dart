@@ -5,6 +5,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class DetailsScreenBody extends StatefulWidget {
@@ -72,7 +73,9 @@ DateTime date= DateTime.now();
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: [Text( '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}'), Icon(Icons.calendar_today)],
+            children: [Text( '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}', style: TextStyle(fontSize: 25),
+
+              Icon(Icons.calendar_today, size: 25,)],
           )));
 
   Widget buildLineChart(Map<int, double> spots) => Container(
@@ -149,7 +152,7 @@ DateTime date= DateTime.now();
       body: CupertinoDatePicker(
   mode: CupertinoDatePickerMode.date,
   onDateTimeChanged: (dateTime) {
-    LoadChartEvent( this.facilityName ,'${dateTime.year}-${dateTime.month}-${dateTime.day}-${dateTime.hour}');
+    LoadChartEvent( this.facilityName ,'${dateTime.year}-${dateTime.month}-${dateTime.day}-${date.hour}');
   }
       ));
 }
