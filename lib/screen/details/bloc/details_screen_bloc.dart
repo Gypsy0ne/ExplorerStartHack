@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:explorer_start_hack/model/location_detail_dto.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 part 'details_screen_event.dart';
@@ -24,6 +25,6 @@ class DetailsScreenBloc extends Bloc<DetailsScreenEvent, DetailsScreenState> {
 
 Stream<DetailsScreenState> _loadChartEvent(LoadChartEvent event) async* {
   yield DetailsScreenLoading();
-  get data from database final prop = await _getProps
+
   yield DetailsScreenLoaded();
 }

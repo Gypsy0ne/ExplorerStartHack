@@ -1,11 +1,12 @@
 import 'dart:html';
-import 'dart:math';
 
 import 'package:explorer_start_hack/screen/details/bloc/details_screen_bloc.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'data_chooser_dialog.dart';
 
 class DetailsScreenBody extends StatefulWidget {
   final String facilityName;
@@ -44,11 +45,11 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
         BlocBuilder<DetailsScreenBloc, DetailsScreenState>(
           builder: (context, state) {
             if (state is DetailsScreenInitial) {
-              return Center(child: buildLineChart());
+              return Center(child: buildLineChart((state as DetailsScreenLoaded).details.predictions.asMap()));
             } else if (state is DetailsScreenLoading) {
               return buildLoadingAnimation();
             } else if (state is DetailsScreenLoaded) {
-              return Center(child: buildLineChart((state as DetailsScreenLoaded)));
+              return Center(child: buildLineChart((state as DetailsScreenLoaded).details.predictions.asMap()));
             } else {
               return Container(child: Text("Error try again later :("));
             }
@@ -59,7 +60,12 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
   Widget buildCalendarButton() => Align(
       alignment: Alignment.topRight,
       child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => buildDatePicker()));
+
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [Text("data"), Icon(Icons.calendar_today)],
@@ -134,4 +140,10 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
       )));
 
   Widget buildLoadingAnimation() => CircularProgressIndicator();
+
+  Widget buildDatePicker() => CupertinoDatePicker(
+  mode: CupertinoDatePickerMode.date,
+  onDateTimeChanged: (dateTime) {
+  print(dateTime);}
+  );
 }

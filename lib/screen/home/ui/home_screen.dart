@@ -105,4 +105,6 @@ class HomeScreenState extends State<HomeScreen> {
 
   _getSearch() => BlocProvider.of<HomeScreenBloc>(context)
       .add(GetSearchEvent(searchTextFieldController.text));
+
+
 }
