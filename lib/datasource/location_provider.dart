@@ -21,34 +21,37 @@ class LocationProvider {
   Future<Response> fetchLocations() => get(Uri.http(BACKEND_ADDRESS, 'rafcik'));
 
 
-  Future<LocationDetailEntity> fetchLocationDetails() =>
-      Future.delayed(
-          Duration(seconds: 2),
-              () =>
-              LocationDetailEntity([
-                12.3,
-                43.2,
-                33,
-                66,
-                44,
-                33,
-                23.4,
-                44.3,
-                32,
-                77,
-                66,
-                57,
-                86,
-                45,
-                34,
-                34.23,
-                43,
-                42,
-                99,
-                8,
-                7,
-                6,
-                12,
-                43
-              ]));
+  Future<Response> fetchLocationDetails(String facilityName, date) => get(Uri.http(BACKEND_ADDRESS, 'detail', {
+    'facility': facilityName,
+    'date': date
+  })).
+      // Future.delayed(
+      //     Duration(seconds: 2),
+      //         () =>
+      //         LocationDetailEntity([
+      //           12.3,
+      //           43.2,
+      //           33,
+      //           66,
+      //           44,
+      //           33,
+      //           23.4,
+      //           44.3,
+      //           32,
+      //           77,
+      //           66,
+      //           57,
+      //           86,
+      //           45,
+      //           34,
+      //           34.23,
+      //           43,
+      //           42,
+      //           99,
+      //           8,
+      //           7,
+      //           6,
+      //           12,
+      //           43
+      //         ]));
 }

@@ -3,5 +3,5 @@ import 'home/location_entity.dart';
 
 abstract class LocationDataSource {
   Future<List<LocationEntity>> getLocations();
-  Future<LocationDetailEntity> getLocationDetails();
+  Future<LocationDetailEntity> getLocationDetails(String facilityName, String date);
 }

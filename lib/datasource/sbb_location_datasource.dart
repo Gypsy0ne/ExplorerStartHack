@@ -1,14 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:explorer_start_hack/datasource/location_datasource.dart';
 import 'package:explorer_start_hack/datasource/home/location_entity.dart';
+import 'package:explorer_start_hack/datasource/location_datasource.dart';
 import 'package:explorer_start_hack/datasource/location_provider.dart';
 
 import 'details/location_detail_entity.dart';
 
 class SbbLocationDataSource implements LocationDataSource {
-
   final LocationProvider _locationProvider = LocationProvider();
 
   @override
@@ -18,15 +17,23 @@ class SbbLocationDataSource implements LocationDataSource {
     if (response.statusCode == 200) {
       Iterable entities = json.decode(response.body);
       return Future.value(List<LocationEntity>.from(
-          entities.map((entity) => LocationEntity.fromJson(entity))).toList()
-      );
+          entities.map((entity) => LocationEntity.fromJson(entity))).toList());
     } else {
       throw Exception('Failed to load locations');
     }
   }
 
   @override
-  Future<LocationDetailEntity> getLocationDetails() =>
-      _locationProvider.fetchLocationDetails();
+  Future<LocationDetailEntity> getLocationDetails(
+      String facilityName, String date) async {
+    final response =
+        await _locationProvider.fetchLocationDetails(facilityName, date);
 
+    if (response.statusCode == 200) {
+      return Future.value(
+          LocationDetailEntity.fromJson(json.decode(response.body)));
+    } else {
+      throw Exception('Failed to load location details');
+    }
+  }
 }
