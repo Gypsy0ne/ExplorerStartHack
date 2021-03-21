@@ -1,3 +1,5 @@
+import 'package:explorer_start_hack/screen/details/bloc/details_screen_bloc.dart';
+import 'package:explorer_start_hack/screen/details/ui/details_screen.dart';
 import 'package:explorer_start_hack/screen/home/bloc/home_screen_bloc.dart';
 import 'package:explorer_start_hack/screen/home/ui/home_loaded_screen.dart';
 import 'package:explorer_start_hack/screen/home/ui/home_loading_screen.dart';
@@ -5,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -35,16 +36,30 @@ class HomeScreenState extends State<HomeScreen> {
   Widget _homeScreenBody() => Column(
         children: [
           _searchFieldWithFadeInAnimation(),
-          BlocBuilder<HomeScreenBloc, HomeScreenBlocState>(
-            builder: (context, state) {
-              if (state is HomeScreenLoading) {
-                return HomeLoadingScreen();
-              } else if (state is HomeScreenLoaded) {
-                return HomeLoadedScreen(state.locations);
-              } else {
-                return Container();
+          BlocListener(
+            listener: (_, state) {
+              if (state is HomeScreenNavigatedToDetails) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => BlocProvider.value(
+                          value: BlocProvider.of<DetailsScreenBloc>(context),
+                          child: DetailsScreen(state.facilityName))),
+                );
               }
             },
+            bloc: BlocProvider.of<HomeScreenBloc>(context),
+            child: BlocBuilder<HomeScreenBloc, HomeScreenBlocState>(
+              builder: (context, state) {
+                if (state is HomeScreenLoading) {
+                  return HomeLoadingScreen();
+                } else if (state is HomeScreenLoaded) {
+                  return HomeLoadedScreen(state.locations);
+                } else {
+                  return Container();
+                }
+              },
+            ),
           )
         ],
       );
@@ -80,7 +95,7 @@ class HomeScreenState extends State<HomeScreen> {
             borderSide: BorderSide(color: Colors.white),
             borderRadius: BorderRadius.circular(16),
           ),
-        filled: true,
+          filled: true,
           counter: Offstage(),
           fillColor: Colors.white,
           border: InputBorder.none,

@@ -27,9 +27,13 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenBlocState> {
     if (event is LoadLocationsEvent) {
       yield* _onLoadLocationsEvent(event);
     }
+
+    if (event is NavigateToDetailsEvent) {
+      yield HomeScreenNavigatedToDetails(event.facilityName);
+    }
   }
 
-  Future<List<LocationDto>>_getLocationsAndCache() async {
+  Future<List<LocationDto>> _getLocationsAndCache() async {
     final fetchedLocations = await _locationRepository.getLocations();
     _cachedLocations = fetchedLocations;
     return fetchedLocations;
@@ -42,19 +46,21 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenBlocState> {
     yield HomeScreenLoaded(locations);
   }
 
-
   Stream<HomeScreenBlocState> _onSearchEvent(GetSearchEvent event) async* {
     yield HomeScreenLoading();
     List<LocationDto> fetchedLocations;
 
-    if(_cachedLocations.isNotEmpty) {
+    if (_cachedLocations.isNotEmpty) {
       fetchedLocations = _cachedLocations;
     } else {
       fetchedLocations = await _getLocationsAndCache();
     }
 
-    final locations = fetchedLocations.where((element) => element.facility.toLowerCase().contains(event.searchText.toLowerCase())).toList();
+    final locations = fetchedLocations
+        .where((element) => element.facility
+            .toLowerCase()
+            .contains(event.searchText.toLowerCase()))
+        .toList();
     yield HomeScreenLoaded(locations);
-
   }
 }

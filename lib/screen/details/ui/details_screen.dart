@@ -2,24 +2,26 @@ import 'package:explorer_start_hack/screen/details/bloc/details_screen_bloc.dart
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+class DetailsScreen extends StatelessWidget {
+  final String facilityName;
+
+  DetailsScreen(this.facilityName);
+
+  @override
+  Widget build(BuildContext context) {
+    return DetailsScreenBody();
+  }
+}
 
 class DetailsScreenBody extends StatefulWidget {
-
-  DetailsScreenBody(String stationName);
   @override
-  State<StatefulWidget> createState() => DetailsScreenBodyState(stationName);
-
+  State<StatefulWidget> createState() => DetailsScreenBodyState();
 }
 
 class DetailsScreenBodyState extends State<DetailsScreenBody> {
   List<Color> gradientColors = [Colors.red, Colors.yellow, Colors.green];
-  String stationName;
-  DetailsScreenBodyState(String stationName)
-  {this.stationName= stationName;}
 
   _calendarChange(DateTime dateTime) =>
       BlocProvider.of<DetailsScreenBloc>(context);
@@ -28,7 +30,7 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(stationName),
+          title: Text("place for City name"),
         ),
         body: _detailsScreen());
   }
@@ -132,4 +134,11 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
       )));
 
   Widget buildLoadingAnimation() => CircularProgressIndicator();
+
+  Widget buildDataPicker() => Dialog(
+      child: CupertinoDatePicker(
+          mode: CupertinoDatePickerMode.date,
+          onDateTimeChanged: (dateTime) {
+            _calendarChange(dateTime);
+          }));
 }
