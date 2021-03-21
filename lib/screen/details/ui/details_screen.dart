@@ -10,8 +10,7 @@ class DetailsScreenBody extends StatefulWidget {
   DetailsScreenBody(this.facilityName);
 
   @override
-  State<StatefulWidget> createState() =>
-      DetailsScreenBodyState(this.facilityName);
+  State<StatefulWidget> createState() => DetailsScreenBodyState(this.facilityName);
 }
 
 class DetailsScreenBodyState extends State<DetailsScreenBody> {
@@ -20,7 +19,6 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
   DateTime date = DateTime.now();
 
   final String facilityName;
-
   DetailsScreenBodyState(this.facilityName);
 
   _calendarChange(DateTime dateTime) =>
@@ -39,23 +37,17 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<DetailsScreenBloc>(context).add(LoadChartEvent(
-        this.facilityName,
-        '${date.year}-${date.month}-${date.day}-${date.hour}'));
+    BlocProvider.of<DetailsScreenBloc>(context).add(LoadChartEvent( this.facilityName, '${date.year}-${date.month}-${date.day}-${date.hour}'));
   }
 
   Widget _detailsScreen() => Column(children: [
         buildCalendarButton(),
         BlocBuilder<DetailsScreenBloc, DetailsScreenState>(
           builder: (context, state) {
-            if (state is DetailsScreenLoading) {
+             if (state is DetailsScreenLoading) {
               return buildLoadingAnimation();
             } else if (state is DetailsScreenLoaded) {
-              return Center(
-                  child: buildLineChart((state as DetailsScreenLoaded)
-                      .details
-                      .predictions
-                      .asMap()));
+              return Center(child: buildLineChart(state.details.predictions.asMap()));
             } else {
               return Container(child: Text("Error try again later :("));
             }
@@ -67,12 +59,13 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
       alignment: Alignment.topRight,
       child: InkWell(
           onTap: () {
-            Navigator.push(context,
+            Navigator.push(
+                context,
                 MaterialPageRoute(builder: (context) => buildDatePicker()));
           },
           child: Padding(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                       '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}',
@@ -99,7 +92,7 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
             show: true,
             bottomTitles: SideTitles(
               showTitles: true,
-              reservedSize: 22,
+              reservedSize: 2,
               getTextStyles: (value) => const TextStyle(
                   color: Color(0xff68737d),
                   fontWeight: FontWeight.bold,
@@ -113,12 +106,13 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
             ),
             leftTitles: SideTitles(
               showTitles: true,
-              reservedSize: 19,
+              reservedSize: 34,
               getTextStyles: (value) => const TextStyle(
                   color: Color(0xff68737d),
                   fontWeight: FontWeight.bold,
                   fontSize: 10),
               getTitles: (value) {
+
                 switch (value.toInt()) {
                   case 0:
                     return 'Low';
@@ -129,12 +123,11 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
                 }
                 return '';
               },
+
             )),
         lineBarsData: [
           LineChartBarData(
-            spots: spots.entries
-                .map((entry) => FlSpot(entry.key.toDouble(), entry.value))
-                .toList(),
+            spots: spots.entries.map((entry) => FlSpot(entry.key.toDouble(), entry.value)).toList(),
             isCurved: true,
             barWidth: 5,
             colors:
@@ -155,11 +148,11 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
 
   Widget buildLoadingAnimation() => CircularProgressIndicator();
 
-  Widget buildDatePicker() => Scaffold(
+  Widget buildDatePicker() =>Scaffold(
       body: CupertinoDatePicker(
-          mode: CupertinoDatePickerMode.date,
-          onDateTimeChanged: (dateTime) {
-            LoadChartEvent(this.facilityName,
-                '${dateTime.year}-${dateTime.month}-${dateTime.day}-${date.hour}');
-          }));
+  mode: CupertinoDatePickerMode.date,
+  onDateTimeChanged: (dateTime) {
+    LoadChartEvent( this.facilityName ,'${dateTime.year}-${dateTime.month}-${dateTime.day}-${date.hour}');
+  }
+      ));
 }
