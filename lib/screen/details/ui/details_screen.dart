@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'data_chooser_dialog.dart';
 
 class DetailsScreenBody extends StatefulWidget {
   final String facilityName;
@@ -20,6 +19,9 @@ class DetailsScreenBody extends StatefulWidget {
 class DetailsScreenBodyState extends State<DetailsScreenBody> {
   List<Color> gradientColors = [Colors.red, Colors.yellow, Colors.green];
 
+
+DateTime date= DateTime.now();
+
   final String facilityName;
   DetailsScreenBodyState(this.facilityName);
 
@@ -31,24 +33,24 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("place for City name"),
+          title: Text(facilityName),
+          backgroundColor: Colors.redAccent,
         ),
         body: _detailsScreen());
   }
 
   @override
   void initState() {
+
     super.initState();
-    BlocProvider.of<DetailsScreenBloc>(context).add(LoadChartEvent(this.facilityName, '2021-03-21-10' ));
+    BlocProvider.of<DetailsScreenBloc>(context).add(LoadChartEvent( this.facilityName, '${date.year}-${date.month}-${date.day}-${date.hour}'));
   }
 
   Widget _detailsScreen() => Column(children: [
         buildCalendarButton(),
         BlocBuilder<DetailsScreenBloc, DetailsScreenState>(
           builder: (context, state) {
-            if (state is DetailsScreenInitial) {
-              return Center(child: buildLineChart((state as DetailsScreenLoaded).details.predictions.asMap()));
-            } else if (state is DetailsScreenLoading) {
+             if (state is DetailsScreenLoading) {
               return buildLoadingAnimation();
             } else if (state is DetailsScreenLoaded) {
               return Center(child: buildLineChart((state as DetailsScreenLoaded).details.predictions.asMap()));
@@ -70,7 +72,7 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: [Text("data"), Icon(Icons.calendar_today)],
+            children: [Text( '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}'), Icon(Icons.calendar_today)],
           )));
 
   Widget buildLineChart(Map<int, double> spots) => Container(
@@ -143,9 +145,11 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
 
   Widget buildLoadingAnimation() => CircularProgressIndicator();
 
-  Widget buildDatePicker() => CupertinoDatePicker(
+  Widget buildDatePicker() =>Scaffold(
+      body: CupertinoDatePicker(
   mode: CupertinoDatePickerMode.date,
   onDateTimeChanged: (dateTime) {
-  print(dateTime);}
-  );
+    LoadChartEvent( this.facilityName ,'${dateTime.year}-${dateTime.month}-${dateTime.day}-${dateTime.hour}');
+  }
+      ));
 }
