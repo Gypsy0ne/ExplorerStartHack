@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 class DetailsScreenBody extends StatefulWidget {
   final String facilityName;
 
@@ -15,7 +14,6 @@ class DetailsScreenBody extends StatefulWidget {
 }
 
 class DetailsScreenBodyState extends State<DetailsScreenBody> {
-
   List<Color> gradientColors = [Colors.red, Colors.yellow, Colors.green];
 
   _calendarChange(DateTime dateTime) =>
@@ -40,7 +38,9 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
         buildCalendarButton(),
         BlocBuilder<DetailsScreenBloc, DetailsScreenState>(
           builder: (context, state) {
-            if (state is DetailsScreenLoading) {
+            if (state is DetailsScreenInitial) {
+              return Center(child: buildLineChart());
+            } else if (state is DetailsScreenLoading) {
               return buildLoadingAnimation();
             } else if (state is DetailsScreenLoaded) {
               return Center(child: buildLineChart());
@@ -129,5 +129,4 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
       )));
 
   Widget buildLoadingAnimation() => CircularProgressIndicator();
-
 }
