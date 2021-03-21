@@ -1,12 +1,8 @@
-
-
 import 'package:explorer_start_hack/screen/details/bloc/details_screen_bloc.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 
 class DetailsScreenBody extends StatefulWidget {
   final String facilityName;
@@ -14,18 +10,18 @@ class DetailsScreenBody extends StatefulWidget {
   DetailsScreenBody(this.facilityName);
 
   @override
-  State<StatefulWidget> createState() => DetailsScreenBodyState(this.facilityName);
+  State<StatefulWidget> createState() =>
+      DetailsScreenBodyState(this.facilityName);
 }
 
 class DetailsScreenBodyState extends State<DetailsScreenBody> {
   List<Color> gradientColors = [Colors.red, Colors.yellow, Colors.green];
 
-
-DateTime date= DateTime.now();
+  DateTime date = DateTime.now();
 
   final String facilityName;
-  DetailsScreenBodyState(this.facilityName);
 
+  DetailsScreenBodyState(this.facilityName);
 
   _calendarChange(DateTime dateTime) =>
       BlocProvider.of<DetailsScreenBloc>(context);
@@ -42,19 +38,24 @@ DateTime date= DateTime.now();
 
   @override
   void initState() {
-
     super.initState();
-    BlocProvider.of<DetailsScreenBloc>(context).add(LoadChartEvent( this.facilityName, '${date.year}-${date.month}-${date.day}-${date.hour}'));
+    BlocProvider.of<DetailsScreenBloc>(context).add(LoadChartEvent(
+        this.facilityName,
+        '${date.year}-${date.month}-${date.day}-${date.hour}'));
   }
 
   Widget _detailsScreen() => Column(children: [
         buildCalendarButton(),
         BlocBuilder<DetailsScreenBloc, DetailsScreenState>(
           builder: (context, state) {
-             if (state is DetailsScreenLoading) {
+            if (state is DetailsScreenLoading) {
               return buildLoadingAnimation();
             } else if (state is DetailsScreenLoaded) {
-              return Center(child: buildLineChart((state as DetailsScreenLoaded).details.predictions.asMap()));
+              return Center(
+                  child: buildLineChart((state as DetailsScreenLoaded)
+                      .details
+                      .predictions
+                      .asMap()));
             } else {
               return Container(child: Text("Error try again later :("));
             }
@@ -66,17 +67,23 @@ DateTime date= DateTime.now();
       alignment: Alignment.topRight,
       child: InkWell(
           onTap: () {
-            Navigator.push(
-                context,
+            Navigator.push(context,
                 MaterialPageRoute(builder: (context) => buildDatePicker()));
-
           },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [Text( '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}', style: TextStyle(fontSize: 25),
-
-              Icon(Icons.calendar_today, size: 25,)],
-          )));
+          child: Padding(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                      '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}',
+                      style: TextStyle(fontSize: 25)),
+                  Icon(
+                    Icons.calendar_today,
+                    size: 25,
+                  )
+                ],
+              ),
+              padding: EdgeInsetsDirectional.only(top: 16, bottom: 16))));
 
   Widget buildLineChart(Map<int, double> spots) => Container(
       padding: EdgeInsets.all(20),
@@ -112,7 +119,6 @@ DateTime date= DateTime.now();
                   fontWeight: FontWeight.bold,
                   fontSize: 10),
               getTitles: (value) {
-
                 switch (value.toInt()) {
                   case 0:
                     return 'Low';
@@ -123,11 +129,12 @@ DateTime date= DateTime.now();
                 }
                 return '';
               },
-
             )),
         lineBarsData: [
           LineChartBarData(
-            spots: spots.entries.map((entry) => FlSpot(entry.key.toDouble(), entry.value)).toList(),
+            spots: spots.entries
+                .map((entry) => FlSpot(entry.key.toDouble(), entry.value))
+                .toList(),
             isCurved: true,
             barWidth: 5,
             colors:
@@ -148,11 +155,11 @@ DateTime date= DateTime.now();
 
   Widget buildLoadingAnimation() => CircularProgressIndicator();
 
-  Widget buildDatePicker() =>Scaffold(
+  Widget buildDatePicker() => Scaffold(
       body: CupertinoDatePicker(
-  mode: CupertinoDatePickerMode.date,
-  onDateTimeChanged: (dateTime) {
-    LoadChartEvent( this.facilityName ,'${dateTime.year}-${dateTime.month}-${dateTime.day}-${date.hour}');
-  }
-      ));
+          mode: CupertinoDatePickerMode.date,
+          onDateTimeChanged: (dateTime) {
+            LoadChartEvent(this.facilityName,
+                '${dateTime.year}-${dateTime.month}-${dateTime.day}-${date.hour}');
+          }));
 }

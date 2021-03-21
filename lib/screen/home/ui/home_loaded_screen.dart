@@ -13,7 +13,7 @@ class HomeLoadedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Expanded(
           child: ListView.builder(
-        itemBuilder: (context, index) => ListTile(
+            itemBuilder: (context, index) => ListTile(
           onTap: () => _onItemTapped(context, locations[index].facility),
           title: _locationListTile(locations[index]),
         ),
