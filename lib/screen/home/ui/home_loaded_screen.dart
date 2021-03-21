@@ -29,7 +29,7 @@ class HomeLoadedScreen extends StatelessWidget {
       padding: EdgeInsets.only(top: 2, bottom: 2),
       child: Container(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          height: 60,
+          height: 80,
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(10)),
           child: Row(
@@ -38,25 +38,24 @@ class HomeLoadedScreen extends StatelessWidget {
                 itemData.facility,
                 style: GoogleFonts.ubuntu(
                   textStyle: TextStyle(
-                    fontSize: 18,
+                    fontSize: 30,
                   ),
                 ),
               ),
               Spacer(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                Text((itemData.maxSpots - itemData.takenAll).toString(),
-                    style: GoogleFonts.ubuntu(
-                        textStyle: TextStyle(
-                      fontSize: 10,
-                    ))),
-                Text(("Available spots").toString(),
-                    style: GoogleFonts.ubuntu(
-                        textStyle: TextStyle(
-                      fontSize: 8,
-                    )))
-              ])
+              Text(
+                itemData.maxSpots.toString(),
+                style: GoogleFonts.ubuntu(
+                  textStyle: TextStyle(
+                    fontSize: 28,
+                    shadows: <Shadow>[
+                      Shadow(blurRadius: 2.0, color: Colors.black),
+                    ],
+                  ),
+                ),
+              ),
             ],
           )));
 }
+
+

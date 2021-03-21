@@ -1,6 +1,5 @@
 import 'package:explorer_start_hack/datasource/location_datasource.dart';
 import 'package:explorer_start_hack/datasource/sbb_location_datasource.dart';
-import 'package:explorer_start_hack/model/location_detail_dto.dart';
 import 'package:explorer_start_hack/model/location_dto.dart';
 
 class LocationRepository {
@@ -11,6 +10,4 @@ class LocationRepository {
     var locations = await _dataSource.getLocations();
     return locations.map((entity) => entity.toDto()).toList();
   }
-
- 
 }
