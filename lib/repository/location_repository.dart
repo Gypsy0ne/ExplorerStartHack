@@ -10,6 +10,8 @@ class LocationRepository {
   Future<List<LocationDto>> getLocations() async {
     var locations = await _dataSource.getLocations();
     return locations.map((entity) => entity.toDto()).toList();
+
+
   }
 
   Future<LocationDetailDto> getLocationDetails(String facilityName, String date) async {

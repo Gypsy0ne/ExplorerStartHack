@@ -9,7 +9,6 @@ class LocationDetailDto extends Equatable {
   @override
   List<Object> get props => [predictions];
 }
-
 extension LocationDetailsEntityMapping on LocationDetailEntity {
   LocationDetailDto toDto() {
     return LocationDetailDto(this.preds);
