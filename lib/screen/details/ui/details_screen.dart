@@ -6,22 +6,20 @@ import 'dart:math';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DetailsScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return DetailsScreenBody();
-  }
-  
-}
 
 class DetailsScreenBody extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => DetailsScreenBodyState();
-}
 
+  DetailsScreenBody(String stationName);
+  @override
+  State<StatefulWidget> createState() => DetailsScreenBodyState(stationName);
+
+}
 
 class DetailsScreenBodyState extends State<DetailsScreenBody> {
   List<Color> gradientColors = [Colors.red, Colors.yellow, Colors.green];
+  String stationName;
+  DetailsScreenBodyState(String stationName)
+  {this.stationName= stationName;}
 
   _calendarChange(DateTime dateTime) =>
       BlocProvider.of<DetailsScreenBloc>(context);
@@ -30,10 +28,11 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("place for City name"),
+          title: Text(stationName),
         ),
         body: _detailsScreen());
   }
+
   @override
   void initState() {
     super.initState();
@@ -58,11 +57,7 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
   Widget buildCalendarButton() => Align(
       alignment: Alignment.topRight,
       child: InkWell(
-          onTap: () {
-
-
-          },
-           
+          onTap: () {},
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [Text("data"), Icon(Icons.calendar_today)],
@@ -137,12 +132,4 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
       )));
 
   Widget buildLoadingAnimation() => CircularProgressIndicator();
-
-  Widget buildDataPicker() => Dialog(
-      child: CupertinoDatePicker(
-          mode: CupertinoDatePickerMode.date,
-          onDateTimeChanged: (dateTime) {
-            _calendarChange(dateTime);
-          }));
-
 }

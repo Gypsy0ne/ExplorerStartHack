@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 part 'details_screen_event.dart';
+
 part 'details_screen_state.dart';
 
 class DetailsScreenBloc extends Bloc<DetailsScreenEvent, DetailsScreenState> {
@@ -18,12 +19,10 @@ class DetailsScreenBloc extends Bloc<DetailsScreenEvent, DetailsScreenState> {
       _loadChartEvent(event);
     }
   }
+}
 
-  }
-  Stream<DetailsScreenState> _loadChartEvent(LoadChartEvent event) async* {
-    yield DetailsScreenLoading();
-    // get data from database final prop = await _getProps
-    yield DetailsScreenLoaded();
-  }
-
-
+Stream<DetailsScreenState> _loadChartEvent(LoadChartEvent event) async* {
+  yield DetailsScreenLoading();
+  // get data from database final prop = await _getProps
+  yield DetailsScreenLoaded();
+}

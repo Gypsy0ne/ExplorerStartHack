@@ -24,7 +24,7 @@ class HomeLoadedScreen extends StatelessWidget {
       context,
       MaterialPageRoute(
         // TODO provide data to the constructor
-        builder: (context) => DetailsScreen(),
+        builder: (context) => DetailsScreenBody(),
       ),
     );
   }
@@ -32,32 +32,42 @@ class HomeLoadedScreen extends StatelessWidget {
   _locationListTile(LocationDto itemData) => Padding(
       padding: EdgeInsets.only(top: 2, bottom: 2),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          height: 80,
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          height: 60,
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(10)),
-          child: Row(
-            children: [
-              Text(
-                itemData.facility,
-                style: GoogleFonts.ubuntu(
-                  textStyle: TextStyle(
-                    fontSize: 30,
-                  ),
+          child: Row(children: [
+            Text(
+              itemData.facility,
+              style: GoogleFonts.ubuntu(
+                textStyle: TextStyle(
+                  fontSize: 20,
                 ),
               ),
-              Spacer(),
-              Text(
-                itemData.maxSpots.toString(),
-                style: GoogleFonts.ubuntu(
-                  textStyle: TextStyle(
-                    fontSize: 28,
-                    shadows: <Shadow>[
-                      Shadow(blurRadius: 2.0, color: Colors.black),
-                    ],
+            ),
+            Spacer(),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  (itemData.maxSpots - itemData.takenAll).toString() +
+                      '/' +
+                      itemData.maxSpots.toString(),
+                  style: GoogleFonts.ubuntu(
+                    textStyle: TextStyle(
+                      fontSize: 15,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          )));
+                Text(
+                  "Available spots ",
+                  style: GoogleFonts.ubuntu(
+                    textStyle: TextStyle(
+                      fontSize: 8,
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ])));
 }

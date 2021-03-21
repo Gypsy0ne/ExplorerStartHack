@@ -20,6 +20,7 @@ class HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("SBB explorer"),
+        backgroundColor: Colors.redAccent,
       ),
       body: _homeScreenBody(),
     );
