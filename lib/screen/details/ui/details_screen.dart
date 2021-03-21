@@ -18,7 +18,7 @@ class DetailsScreenBody extends StatefulWidget {
 }
 
 class DetailsScreenBodyState extends State<DetailsScreenBody> {
-  List<Color> gradientColors = [Colors.red, Colors.yellow, Colors.green];
+  List<Color> gradientColors = [Colors.redAccent, Colors.yellow, Colors.green];
 
 
 DateTime date= DateTime.now();
@@ -47,7 +47,9 @@ DateTime date= DateTime.now();
     BlocProvider.of<DetailsScreenBloc>(context).add(LoadChartEvent( this.facilityName, '${date.year}-${date.month}-${date.day}-${date.hour}'));
   }
 
-  Widget _detailsScreen() => Column(children: [
+  Widget _detailsScreen() => Column(
+      children: [
+
         buildCalendarButton(),
         BlocBuilder<DetailsScreenBloc, DetailsScreenState>(
           builder: (context, state) {
@@ -63,8 +65,10 @@ DateTime date= DateTime.now();
       ]);
 
   Widget buildCalendarButton() => Align(
-      alignment: Alignment.topRight,
+
+      alignment: Alignment.topCenter,
       child: InkWell(
+
           onTap: () {
             Navigator.push(
                 context,
@@ -72,10 +76,10 @@ DateTime date= DateTime.now();
 
           },
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [Text( '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}', style: TextStyle(fontSize: 25),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Text( '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}', style: TextStyle(fontSize: 25,)),
 
-              Icon(Icons.calendar_today, size: 25,)],
+              Icon(Icons.calendar_today, size:25)],
           )));
 
   Widget buildLineChart(Map<int, double> spots) => Container(
@@ -92,7 +96,7 @@ DateTime date= DateTime.now();
             show: true,
             bottomTitles: SideTitles(
               showTitles: true,
-              reservedSize: 22,
+              reservedSize: 2,
               getTextStyles: (value) => const TextStyle(
                   color: Color(0xff68737d),
                   fontWeight: FontWeight.bold,
@@ -106,7 +110,7 @@ DateTime date= DateTime.now();
             ),
             leftTitles: SideTitles(
               showTitles: true,
-              reservedSize: 19,
+              reservedSize: 34,
               getTextStyles: (value) => const TextStyle(
                   color: Color(0xff68737d),
                   fontWeight: FontWeight.bold,
