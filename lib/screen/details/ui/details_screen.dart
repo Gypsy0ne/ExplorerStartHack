@@ -2,23 +2,23 @@ import 'package:explorer_start_hack/screen/details/bloc/details_screen_bloc.dart
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailsScreen extends StatelessWidget {
+  final String facilityName;
+
+  DetailsScreen(this.facilityName);
+
   @override
   Widget build(BuildContext context) {
     return DetailsScreenBody();
   }
-  
 }
 
 class DetailsScreenBody extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => DetailsScreenBodyState();
 }
-
 
 class DetailsScreenBodyState extends State<DetailsScreenBody> {
   List<Color> gradientColors = [Colors.red, Colors.yellow, Colors.green];
@@ -34,6 +34,7 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
         ),
         body: _detailsScreen());
   }
+
   @override
   void initState() {
     super.initState();
@@ -58,11 +59,7 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
   Widget buildCalendarButton() => Align(
       alignment: Alignment.topRight,
       child: InkWell(
-          onTap: () {
-
-
-          },
-           
+          onTap: () {},
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [Text("data"), Icon(Icons.calendar_today)],
@@ -144,5 +141,4 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
           onDateTimeChanged: (dateTime) {
             _calendarChange(dateTime);
           }));
-
 }

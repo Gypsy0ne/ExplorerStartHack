@@ -18,3 +18,12 @@ class LoadLocationsEvent extends HomeScreenEvent {
   @override
   List<Object> get props => [];
 }
+
+class NavigateToDetailsEvent extends HomeScreenEvent {
+  final String facilityName;
+  
+  NavigateToDetailsEvent(this.facilityName);
+  
+  @override
+  List<Object> get props => [];
+}
