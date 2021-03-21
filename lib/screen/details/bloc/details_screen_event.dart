@@ -7,11 +7,16 @@ abstract class DetailsScreenEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class CalendarChangeEvent extends DetailsScreenEvent
-{
+class CalendarChangeEvent extends DetailsScreenEvent {
+  final String facilityName;
+  final String date;
 
+  CalendarChangeEvent(this.facilityName, this.date);
 }
-class LoadChartEvent extends DetailsScreenEvent
-{
 
+class LoadChartEvent extends DetailsScreenEvent {
+  final String facilityName;
+  final String date;
+
+  LoadChartEvent(this.facilityName, this.date);
 }
