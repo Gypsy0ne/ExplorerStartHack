@@ -6,6 +6,5 @@ class LocationProvider {
   Future<Response> fetchLocations() => get(Uri.http(BACKEND_ADDRESS, 'home'));
 
   Future<Response> fetchLocationDetails(String facilityName, String date) =>
-      get(Uri.http(
-          BACKEND_ADDRESS, 'detail', {'facility': facilityName, 'date': date}));
+      get(Uri.http(BACKEND_ADDRESS, 'detail', {'facility': facilityName, 'date': date}));
 }

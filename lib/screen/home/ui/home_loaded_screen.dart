@@ -44,21 +44,46 @@ class HomeLoadedScreen extends StatelessWidget {
               ),
               Spacer(),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+
+                crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                Text((itemData.maxSpots - itemData.takenAll).toString(),
+                Text(itemData.maxSpots.toString(),
                     style: GoogleFonts.ubuntu(
                         textStyle: TextStyle(
-                      fontSize: 10,
+                          color: _getAvailabilityStateColorMapping(itemData.takenAll),
+                      fontSize: 12,
                     ))),
-                Text(("Available spots").toString(),
+                Text("Total spots",
                     style: GoogleFonts.ubuntu(
                         textStyle: TextStyle(
-                      fontSize: 8,
+                          color: _getAvailabilityStateColorMapping(itemData.takenAll),
+                          fontSize: 10,
                     )))
               ])
             ],
           )));
+
+    Color _getAvailabilityStateColorMapping(int state) {
+      switch(state) {
+        case 0: {
+          return Colors.red;
+        }
+        break;
+
+        case 1: {
+          return Colors.yellow;
+        }
+        break;
+
+        case 2: {
+          return Colors.green;
+        }
+        break;
+        default: {
+          return Colors.green;
+        }
+      }
+    }
 }
 
 
