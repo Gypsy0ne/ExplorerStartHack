@@ -4,23 +4,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DetailsScreen extends StatelessWidget {
-  final String facilityName;
-
-  DetailsScreen(this.facilityName);
-
-  @override
-  Widget build(BuildContext context) {
-    return DetailsScreenBody();
-  }
-}
 
 class DetailsScreenBody extends StatefulWidget {
+  final String facilityName;
+
+  DetailsScreenBody(this.facilityName);
+
   @override
   State<StatefulWidget> createState() => DetailsScreenBodyState();
 }
 
 class DetailsScreenBodyState extends State<DetailsScreenBody> {
+
   List<Color> gradientColors = [Colors.red, Colors.yellow, Colors.green];
 
   _calendarChange(DateTime dateTime) =>
@@ -135,10 +130,4 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
 
   Widget buildLoadingAnimation() => CircularProgressIndicator();
 
-  Widget buildDataPicker() => Dialog(
-      child: CupertinoDatePicker(
-          mode: CupertinoDatePickerMode.date,
-          onDateTimeChanged: (dateTime) {
-            _calendarChange(dateTime);
-          }));
 }

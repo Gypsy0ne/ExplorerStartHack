@@ -1,6 +1,7 @@
 import 'package:explorer_start_hack/screen/details/bloc/details_screen_bloc.dart';
 import 'package:explorer_start_hack/screen/details/ui/details_screen.dart';
 import 'package:explorer_start_hack/screen/home/bloc/home_screen_bloc.dart';
+import 'package:explorer_start_hack/screen/home/bloc/home_screen_bloc.dart';
 import 'package:explorer_start_hack/screen/home/ui/home_loaded_screen.dart';
 import 'package:explorer_start_hack/screen/home/ui/home_loading_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -44,7 +45,7 @@ class HomeScreenState extends State<HomeScreen> {
                   MaterialPageRoute(
                       builder: (_) => BlocProvider.value(
                           value: BlocProvider.of<DetailsScreenBloc>(context),
-                          child: DetailsScreen(state.facilityName))),
+                          child: DetailsScreenBody(state.facilityName))),
                 );
               }
             },
