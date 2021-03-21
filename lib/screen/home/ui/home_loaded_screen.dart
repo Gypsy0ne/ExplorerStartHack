@@ -46,7 +46,9 @@ class HomeLoadedScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                Text((itemData.maxSpots - itemData.takenAll).toString(),
+
+                Text(
+                    (itemData.takenAll).toString(),
                     style: GoogleFonts.ubuntu(
                         textStyle: TextStyle(
                       fontSize: 10,
