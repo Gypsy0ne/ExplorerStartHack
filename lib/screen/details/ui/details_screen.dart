@@ -1,3 +1,6 @@
+import 'dart:html';
+import 'dart:math';
+
 import 'package:explorer_start_hack/screen/details/bloc/details_screen_bloc.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,6 +18,8 @@ class DetailsScreenBody extends StatefulWidget {
 
 class DetailsScreenBodyState extends State<DetailsScreenBody> {
   List<Color> gradientColors = [Colors.red, Colors.yellow, Colors.green];
+
+
 
   _calendarChange(DateTime dateTime) =>
       BlocProvider.of<DetailsScreenBloc>(context);
@@ -43,7 +48,7 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
             } else if (state is DetailsScreenLoading) {
               return buildLoadingAnimation();
             } else if (state is DetailsScreenLoaded) {
-              return Center(child: buildLineChart());
+              return Center(child: buildLineChart((state as DetailsScreenLoaded)));
             } else {
               return Container(child: Text("Error try again later :("));
             }
@@ -60,7 +65,7 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
             children: [Text("data"), Icon(Icons.calendar_today)],
           )));
 
-  Widget buildLineChart() => Container(
+  Widget buildLineChart(Map<int, double> spots) => Container(
       padding: EdgeInsets.all(20),
       width: MediaQuery.of(context).size.width,
       child: LineChart(LineChartData(
@@ -69,7 +74,7 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
             border: Border.all(color: const Color(0xff37434d), width: 1)),
         minX: 0,
         minY: 0,
-        maxY: 100,
+        maxY: 4,
         titlesData: FlTitlesData(
             show: true,
             bottomTitles: SideTitles(
@@ -94,22 +99,22 @@ class DetailsScreenBodyState extends State<DetailsScreenBody> {
                   fontWeight: FontWeight.bold,
                   fontSize: 10),
               getTitles: (value) {
-                if (value.toInt() % 10 == 0) {
-                  return value.toInt().toString() + '%';
+
+                switch (value.toInt()) {
+                  case 0:
+                    return 'Low';
+                  case 1:
+                    return 'Medium';
+                  case 2:
+                    return 'High';
                 }
                 return '';
               },
+
             )),
         lineBarsData: [
           LineChartBarData(
-            spots: [
-              FlSpot(0, 90),
-              FlSpot(2, 20),
-              FlSpot(5, 50),
-              FlSpot(10, 70),
-              FlSpot(23, 10),
-              FlSpot(24, 20),
-            ],
+            spots: spots.entries.map((entry) => FlSpot(entry.key.toDouble(), entry.value)).toList(),
             isCurved: true,
             barWidth: 5,
             colors:
