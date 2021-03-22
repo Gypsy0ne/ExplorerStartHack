@@ -1,14 +1,10 @@
-import 'package:explorer_start_hack/datasource/location_entity.dart';
+import 'package:explorer_start_hack/backend_config.dart';
+import 'package:http/http.dart';
 
 class LocationProvider {
   // TODO extract strings
-  Future<List<LocationEntity>> fetchLocations() => Future.delayed(
-      Duration(seconds: 2),
-      () => [
-            LocationEntity("Fribourg ancienne gare", totalFreeSpaces: 32),
-            LocationEntity("Burgdorf", totalFreeSpaces: 322),
-            LocationEntity("Uetikon", totalFreeSpaces: 324),
-            LocationEntity("Mettmenstetten", totalFreeSpaces: 525),
-            LocationEntity("St. Gallen St. Fiden", totalFreeSpaces: 322),
-          ]);
+  Future<Response> fetchLocations() => get(Uri.http(BACKEND_ADDRESS, 'home'));
+
+  Future<Response> fetchLocationDetails(String facilityName, String date) =>
+      get(Uri.http(BACKEND_ADDRESS, 'detail', {'facility': facilityName, 'date': date}));
 }

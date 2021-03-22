@@ -1,19 +1,19 @@
 import 'package:equatable/equatable.dart';
-import 'package:explorer_start_hack/datasource/location_entity.dart';
+import 'package:explorer_start_hack/datasource/home/location_entity.dart';
 
 class LocationDto extends Equatable {
-  final String name;
-  final int totalFreeSpaces;
+  final String facility;
+  final int maxSpots;
+  final int takenAll;
 
-  //default until borsuk will provide data from backend
-  const LocationDto(this.name, {this.totalFreeSpaces = 0});
+  const LocationDto(this.facility, this.maxSpots, this.takenAll);
 
   @override
-  List<Object> get props => [name, totalFreeSpaces];
+  List<Object> get props => [facility, maxSpots, takenAll];
 }
 
 extension EntityMapping on LocationEntity {
   LocationDto toDto() {
-    return LocationDto(this.name, totalFreeSpaces: this.totalFreeSpaces);
+    return LocationDto(this.facility, this.maxSpots, this.takenAll);
   }
 }
